@@ -1,0 +1,73 @@
+{
+  // Run with Terminal > Run Task... (or Ctrl+Shift+P > "Tasks: Run Task").
+  // Every task runs from the project folder in VS Code's integrated terminal.
+  "version": "2.0.0",
+  "options": { "cwd": "${workspaceFolder}" },
+  "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+  "tasks": [
+    {
+      "label": "0. Check setup",
+      "type": "shell",
+      "command": "for t in gcc aarch64-linux-gnu-gcc aarch64-linux-gnu-addr2line qemu-aarch64 python3 perf latexmk; do command -v $t >/dev/null && echo \"ok      $t\" || echo \"MISSING $t\"; done; python3 -c 'import matplotlib' && echo 'ok      matplotlib'; test -f sysroot-glibc2.36/lib/ld-linux-aarch64.so.1 && echo 'ok      glibc 2.36 sysroot' || echo 'MISSING glibc 2.36 sysroot (README step 3)'; echo \"perf_event_paranoid = $(cat /proc/sys/kernel/perf_event_paranoid) (must be <= 1)\"",
+      "problemMatcher": []
+    },
+    {
+      "label": "1. Build all binaries",
+      "type": "shell",
+      "command": "scripts/build.sh",
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "2. Phase 2: detection matrix",
+      "type": "shell",
+      "command": "python3 scripts/run_detection.py --reps 20 | tee results/log_detection.txt",
+      "problemMatcher": []
+    },
+    {
+      "label": "3. Phase 4 + RQ3: MTE experiments",
+      "type": "shell",
+      "command": "python3 scripts/run_mte_experiments.py",
+      "problemMatcher": []
+    },
+    {
+      "label": "4. Phase 3: runtime and memory",
+      "type": "shell",
+      "command": "python3 scripts/run_perf.py --reps 5 | tee results/log_perf.txt",
+      "problemMatcher": []
+    },
+    {
+      "label": "5. Phase 3: perf stat counters (x86-64)",
+      "type": "shell",
+      "command": "python3 scripts/run_perf_counters.py --reps 5 | tee results/log_perf_counters.txt",
+      "problemMatcher": []
+    },
+    {
+      "label": "6. Figures and tables",
+      "type": "shell",
+      "command": "python3 scripts/make_figures.py",
+      "problemMatcher": []
+    },
+    {
+      "label": "7. Build report and slides",
+      "type": "shell",
+      "command": "(cd report && latexmk -pdf -interaction=nonstopmode report.tex && latexmk -c) && (cd slides && latexmk -pdf -interaction=nonstopmode slides.tex && latexmk -c && rm -f slides.nav slides.snm)",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run everything (steps 1-7)",
+      "type": "shell",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "1. Build all binaries",
+        "2. Phase 2: detection matrix",
+        "3. Phase 4 + RQ3: MTE experiments",
+        "4. Phase 3: runtime and memory",
+        "5. Phase 3: perf stat counters (x86-64)",
+        "6. Figures and tables",
+        "7. Build report and slides"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}

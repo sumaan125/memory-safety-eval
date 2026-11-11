@@ -1,0 +1,71 @@
+x86_64   stack_overflow             baseline   -> CRASH     segfault SEGV_MAPERR (side effect, not a defense) 
+x86_64   stack_overflow             hardening  -> DETECTED  stack canary (__stack_chk_fail) 
+x86_64   stack_overflow             asan       -> DETECTED  ASan: stack-buffer-overflow stack_overflow.c:8
+x86_64   heap_overflow              baseline   -> MISSED    silent corruption 
+x86_64   heap_overflow              hardening  -> MISSED    silent corruption 
+x86_64   heap_overflow              asan       -> DETECTED  ASan: heap-buffer-overflow heap_overflow.c:11
+x86_64   oob_read                   baseline   -> MISSED    silent corruption 
+x86_64   oob_read                   hardening  -> MISSED    silent corruption 
+x86_64   oob_read                   asan       -> DETECTED  ASan: heap-buffer-overflow oob_read.c:9
+x86_64   oob_write                  baseline   -> MISSED    silent corruption 
+x86_64   oob_write                  hardening  -> MISSED    silent corruption 
+x86_64   oob_write                  asan       -> DETECTED  ASan: heap-buffer-overflow oob_write.c:9
+x86_64   use_after_free             baseline   -> MISSED    silent corruption 
+x86_64   use_after_free             hardening  -> MISSED    silent corruption 
+x86_64   use_after_free             asan       -> DETECTED  ASan: heap-use-after-free use_after_free.c:12
+x86_64   double_free                baseline   -> DETECTED  glibc allocator: free(): double free detected in tcache 2 
+x86_64   double_free                hardening  -> DETECTED  glibc allocator: free(): double free detected in tcache 2 
+x86_64   double_free                asan       -> DETECTED  ASan: attempting double-free double_free.c:12
+x86_64   intra_granule_overflow     baseline   -> MISSED    silent corruption 
+x86_64   intra_granule_overflow     hardening  -> MISSED    silent corruption 
+x86_64   intra_granule_overflow     asan       -> DETECTED  ASan: heap-buffer-overflow intra_granule_overflow.c:15
+x86_64   far_oob_into_live_object   baseline   -> MISSED    silent corruption 
+x86_64   far_oob_into_live_object   hardening  -> MISSED    silent corruption 
+x86_64   far_oob_into_live_object   asan       -> MISSED    silent corruption 
+x86_64   uaf_after_reallocation     baseline   -> MISSED    silent corruption 
+x86_64   uaf_after_reallocation     hardening  -> MISSED    silent corruption 
+x86_64   uaf_after_reallocation     asan       -> MISSED    silent corruption 
+x86_64   intra_object_overflow      baseline   -> MISSED    control-flow hijacked 
+x86_64   intra_object_overflow      hardening  -> DETECTED  bounds-check trap (-fsanitize=bounds-strict) intra_object_overflow.c:36 (main)
+x86_64   intra_object_overflow      asan       -> MISSED    control-flow hijacked 
+aarch64  stack_overflow             baseline   -> MISSED    silent corruption 
+aarch64  stack_overflow             hardening  -> DETECTED  stack canary (__stack_chk_fail) 
+aarch64  stack_overflow             mte-sync   -> MISSED    silent corruption 
+aarch64  stack_overflow             mte-async  -> MISSED    silent corruption 
+aarch64  heap_overflow              baseline   -> MISSED    silent corruption 
+aarch64  heap_overflow              hardening  -> MISSED    silent corruption 
+aarch64  heap_overflow              mte-sync   -> DETECTED  MTE sync tag-check fault (precise) heap_overflow.c:11 (main)
+aarch64  heap_overflow              mte-async  -> DETECTED  MTE async tag-check fault (imprecise, addr=0) heap_overflow+0xa30
+aarch64  oob_read                   baseline   -> MISSED    silent corruption 
+aarch64  oob_read                   hardening  -> MISSED    silent corruption 
+aarch64  oob_read                   mte-sync   -> MISSED    silent corruption 
+aarch64  oob_read                   mte-async  -> MISSED    silent corruption 
+aarch64  oob_write                  baseline   -> MISSED    silent corruption 
+aarch64  oob_write                  hardening  -> MISSED    silent corruption 
+aarch64  oob_write                  mte-sync   -> MISSED    silent corruption 
+aarch64  oob_write                  mte-async  -> MISSED    silent corruption 
+aarch64  use_after_free             baseline   -> MISSED    silent corruption 
+aarch64  use_after_free             hardening  -> MISSED    silent corruption 
+aarch64  use_after_free             mte-sync   -> DETECTED  MTE sync tag-check fault (precise) use_after_free.c:12 (main)
+aarch64  use_after_free             mte-async  -> DETECTED  MTE async tag-check fault (imprecise, addr=0) use_after_free+0xa30
+aarch64  double_free                baseline   -> DETECTED  glibc allocator: free(): double free detected in tcache 2 
+aarch64  double_free                hardening  -> DETECTED  glibc allocator: free(): double free detected in tcache 2 
+aarch64  double_free                mte-sync   -> DETECTED  MTE sync tag-check fault (precise) libc.so.6:free
+aarch64  double_free                mte-async  -> DETECTED  MTE async tag-check fault (imprecise, addr=0) libc.so.6:free
+aarch64  intra_granule_overflow     baseline   -> MISSED    silent corruption 
+aarch64  intra_granule_overflow     hardening  -> MISSED    silent corruption 
+aarch64  intra_granule_overflow     mte-sync   -> MISSED    silent corruption 
+aarch64  intra_granule_overflow     mte-async  -> MISSED    silent corruption 
+aarch64  far_oob_into_live_object   baseline   -> MISSED    silent corruption 
+aarch64  far_oob_into_live_object   hardening  -> MISSED    silent corruption 
+aarch64  far_oob_into_live_object   mte-sync   -> DETECTED  MTE sync tag-check fault (precise) far_oob_into_live_object.c:22 (main)
+aarch64  far_oob_into_live_object   mte-async  -> DETECTED  MTE async tag-check fault (imprecise, addr=0) far_oob_into_live_object+0xa50
+aarch64  uaf_after_reallocation     baseline   -> MISSED    silent corruption 
+aarch64  uaf_after_reallocation     hardening  -> MISSED    silent corruption 
+aarch64  uaf_after_reallocation     mte-sync   -> DETECTED  MTE sync tag-check fault (precise) uaf_after_reallocation.c:44 (main)
+aarch64  uaf_after_reallocation     mte-async  -> DETECTED  MTE async tag-check fault (imprecise, addr=0) uaf_after_reallocation+0xab0
+aarch64  intra_object_overflow      baseline   -> MISSED    control-flow hijacked 
+aarch64  intra_object_overflow      hardening  -> DETECTED  bounds-check trap (-fsanitize=bounds-strict) intra_object_overflow.c:36 (main)
+aarch64  intra_object_overflow      mte-sync   -> MISSED    control-flow hijacked 
+aarch64  intra_object_overflow      mte-async  -> MISSED    control-flow hijacked 
+wrote results/detection_summary.csv

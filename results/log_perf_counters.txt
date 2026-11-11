@@ -1,0 +1,19 @@
+alloc-small   baseline   cycles 2.140e+09 instr 3.411e+09 IPC 1.59 cache-miss 2.608e+05 pf 116
+alloc-small   hardening  cycles 2.152e+09 instr 3.411e+09 IPC 1.59 cache-miss 4.509e+05 pf 115
+alloc-small   asan       cycles 3.418e+10 instr 6.893e+10 IPC 2.02 cache-miss 2.615e+08 pf 146841
+alloc-medium  baseline   cycles 3.025e+09 instr 5.195e+09 IPC 1.72 cache-miss 1.183e+07 pf 791
+alloc-medium  hardening  cycles 3.016e+09 instr 5.195e+09 IPC 1.72 cache-miss 1.209e+07 pf 790
+alloc-medium  asan       cycles 3.828e+10 instr 2.609e+10 IPC 0.68 cache-miss 7.212e+08 pf 124761
+alloc-large   baseline   cycles 1.004e+09 instr 8.347e+08 IPC 0.83 cache-miss 5.834e+06 pf 27126
+alloc-large   hardening  cycles 1.011e+09 instr 8.347e+08 IPC 0.83 cache-miss 5.860e+06 pf 27125
+alloc-large   asan       cycles 2.166e+10 instr 6.502e+09 IPC 0.30 cache-miss 4.530e+08 pf 222875
+access-seq    baseline   cycles 2.151e+09 instr 2.233e+09 IPC 1.04 cache-miss 2.040e+06 pf 16449
+access-seq    hardening  cycles 2.126e+09 instr 2.232e+09 IPC 1.05 cache-miss 2.095e+06 pf 16449
+access-seq    asan       cycles 2.158e+09 instr 3.958e+09 IPC 1.83 cache-miss 2.184e+06 pf 21060
+access-rand   baseline   cycles 7.443e+09 instr 1.982e+08 IPC 0.03 cache-miss 2.450e+07 pf 9280
+access-rand   hardening  cycles 7.419e+09 instr 1.985e+08 IPC 0.03 cache-miss 2.423e+07 pf 9282
+access-rand   asan       cycles 7.563e+09 instr 3.776e+08 IPC 0.05 cache-miss 2.423e+07 pf 12106
+kv-store      baseline   cycles 5.702e+09 instr 4.717e+09 IPC 0.83 cache-miss 7.100e+07 pf 9097
+kv-store      hardening  cycles 5.614e+09 instr 4.792e+09 IPC 0.85 cache-miss 6.996e+07 pf 9097
+kv-store      asan       cycles 1.293e+10 instr 1.604e+10 IPC 1.24 cache-miss 1.155e+08 pf 149186
+wrote results/perf_counters.csv

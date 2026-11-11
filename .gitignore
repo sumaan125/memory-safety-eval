@@ -1,0 +1,17 @@
+# Compiled binaries: rebuild with scripts/build.sh
+build/
+# Debian glibc 2.36 for the AArch64 runs: download with README step 3
+sysroot-glibc2.36/
+# Python and LaTeX by-products
+__pycache__/
+*.pyc
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.nav
+*.snm
+*.vrb
+*.synctex.gz
